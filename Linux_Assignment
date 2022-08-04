@@ -1,0 +1,187 @@
+FILE PERMISSIONS- file permissions control the acces level the system processes and users
+			have over files
+>read permission (r)
+>write permission (w)
+>execute permission (x)
+
+to view permissions write
+-rw-rw-r--
+ugo- user group others
+
+ls -l file_name
+
+
+FIND COMMAND- used to search and locate the list of files and directories based on condition
+		you specify like -permissions, groups, users, file types, date, size etc
+
+* - means all files in current directory
+
+to find files with uid 100-
+find / -uid 1000
+
+ls-il= shows inode values of the directory u have created
+
+	hard links and soft links
+for hard link= ln file_name 1 file_name 2
+referencing the same inode value (unique)inode= memory(where data is saved)
+hard link = assigning similar inode value to the two files
+
+
+SOFT LINK= ln-s file_name 1 file_name 2
+soft link se uska reference milta h
+
+rm-rf *= to delete every file from directory
+ls-i= prints the index no. of the file
+
+sudo i- to become the root user
+exit: to exit the root user
+cat /etc/passwd shows us each users entry and passwords
+
+useradd- to add a user
+
+passwd- for changing the password
+
+ctrl+w for deleting the last word
+
+sudo userdel name- to delete the user
+
+rm -rf name/ to delete the home directory
+
+PRIMARY GROUP
+the greoup which is created and the user is added by default
+
+id- to check the groups
+
+SUPPLEMENTARY GROUP/ secondary group
+when we add a user in other group the user leaves initial group and gets added in 2nd group only, we have to add user seperately in supplementary group
+
+
+CALL BY REFERNCE & CALL BY VALUE
+call by refernce has actual and formal arguements in the same memory allocation
+call by value  has actual and formal arguements in different memory allocations 
+
+standard output redirection
+ chmod - to change permissions
+
+chown - to channge the owner
+
+ALIAS command are mostly used to replace long commands, improving efficiency and 
+avoiding potential errors 
+syntax:
+		alias [option] [name]='[value]'
+
+
+cat command is used to view the contents of the file
+
+hostname-i command is used to know the ip address in your network
+
+>>You can use the clear command to clear the terminal if it gets filled up with too many commands.
+
+>>TAB can be used to fill up in terminal. For example, You just need to type “cd Doc” and then TAB and the terminal fills the rest up and makes it “cd Documents”.
+
+>>Ctrl+C can be used to stop any command in terminal safely. If it doesn't stop with that, then Ctrl+Z can be used to force stop it.
+
+>>You can exit from the terminal by using the exit command.
+
+>>You can power off or reboot the computer by using the command sudo halt and sudo reboot.
+
+Q) u have to create a command which will show u the US time(no use of alias)
+A) export TZ=America/los_angeles
+
+Q) Creat 1GB file within 5 seconds.
+A) dd if=/dev/zero of=file.txt count=1024 bs=1048576 or fallocate -l 1G size.txt
+
+DONT RUN COMMAND rm -rf/ it will delete everything.
+
+zip file
+archieval
+sharing
+compression - gzip & bzip
+
+
+Q) create any 10 random files on any location on desktop folder, now try to find
+   out those files which is having a word test inside the file.
+A)  for f in {0..9}; do  echo test > "$f.txt"; done
+   grep -l test *.txt
+
+Q) now find out those file which are created 30 mins before and create an archieval of all 
+   those file inside the current location
+   when u have created the archieval try to untar the file inside the documents
+   folder but from the current location (do not use move command)
+A) find -mmin -30
+  164  tar -cf compress.tar *.txt
+  165  ls -lh
+  166  tar -xvf compress.tar.gz
+  167  gzip compress.tar 
+  168  tar -xvf compress.tar.gz -C /home/tanishka/Documents/
+
+Q) u have to assign the folder (backup) and the users created should be assigned 
+   to that folder by default  
+
+A) sudo mkdir -p /etc/skel/ba
+
+
+Some Commands:
+   89  mkdir happybirthday
+   90  cd happybirthday/
+   91  pwd
+   92  ls
+   93  yes "happy birthday" > data.txt
+   94  ls -lh
+   95  tar -c hello.tar data.txt 
+   96  man tar
+   97  tar -cf hello.tar data.txt 
+   98  rm -rf *
+   99  ls
+  100  touch data.txt hello.txt
+  101  tar -cf regex.tar * 
+  102  ls
+  103  rm data.txt hello.txt 
+  104  ls
+  105  tar -xf regex.tar
+  106  ls
+  107  tar -xvf regex.tar
+  108  rm data.txt hello.txt 
+  109  ls
+  110  tar -tf regex.tar
+  111  ls
+  112  clear
+  113  yes "h" > data.txt
+  114  ls -lh
+  115  tar -cf abc.tar data.txt
+  116  ls -lh
+  117  tar -czf abc.tar.gz data.txt
+  118  ls -lh
+  119  tar -czf abc1.tgz data.txt
+  120  ls -lh
+  121  tar -cjf first.tar.bz data.txt
+  122  ls -lh
+  123  tar -xvf abc.tar.gz data.txt
+  124  ls -lh
+  125  tar -xvf abc.tar.gz
+  126  ls -lh
+  127  touch d.txt
+  128* 
+  129  ls
+  130  gzip data.txt
+  131  bzip2 data.txt
+  132  tar -xvf data.tar.gz
+  133  ls
+  134  bzip2 data.txt
+  135  gzip -d data.txt.gz
+  136  ls
+  137  bzip2 data.txt
+  138  ls
+  139  man cron
+  140  history
+
+
+
+
+chmod ug+rwx abc.txt
+chmod a+rwx abc.txt
+
+
+STICKY BIT
+chmod +t jlet/
+ls -ld jlet/
