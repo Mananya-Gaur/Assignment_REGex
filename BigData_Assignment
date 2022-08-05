@@ -1,0 +1,412 @@
+BIG DATA
+1.	Understand Problem statement
+2.	Data Acquisation (Api, database)
+3.	Data Storage (hadoop, data ware house)
+4.	Data Cleansing (hive, spark, sqoop, hbase)
+5.	Data Transformation (modification)(spark)
+6.	Data Analysis(python, SQL)
+7.	Form Graphs or visulaisation (spark, power BI)
+8.	Machine Learning Algorithm
+9.	Reporting and Dashing
+Generally data was stored In Hard Disk, database, excel.(traditional system)
+BIG DATA: The data which we cannot able to store or access in the traditional system.
+TYPES ( several parameters):
+•	Volume
+•	Velocity: batch data and stream data/ real time data
+•	Variety: structured (metadata) data
+ semi-structure—row/column (absence of meta data)
+{CSV—coma separated value}
+Unstructured—no rows/columns and no meta data (eg. Audio files)
+DIVISION OF DATA (problems)
+•	Waste of memory
+•	Fault system
+•	Meta data (should save manually)
+•	Server (if server fail)
+•	Aggregation (restoring of data failure)
+Scale vertically—when the resources are increasing when process is constant.
+Scale horizontal—distribution and processing of data parallely.
+Commodity hardware: The system that can be rented easily, which have low configuration. 
+Different types of 9 V’s in big data???
+Volume, Velocity, Variety, Variability, Veracity, Visualization, Value, Validity, Volatility
+
+Volume:
+Volume is how much data we have – what used to be measured in Gigabytes is now measured in Zettabytes (ZB) or even Yottabytes (YB). The IoT (Internet of Things) is creating exponential growth in data. The volume of data is projected to change significantly in the coming years.
+Velocity:
+Velocity is the speed in which data is process and becomes accessible. I remember the days of nightly batches, now if it’s not real-time it’s usually not fast enough.
+Variety:
+Variety describes one of the biggest challenges of big data. It can be unstructured and it can include so many different types of data from XML to video to SMS. Organizing the data in a meaningful way is no simple task, especially when the data itself changes rapidly.
+Variability"
+Variability is different from variety. A coffee shop may offer 6 different blends of coffee, but if you get the same blend every day and it tastes different every day, that is variability. The same is true of data, if the meaning is constantly changing it can have a huge impact on your data homogenization.
+Veracity:
+Veracity is all about making sure the data is accurate, which requires processes to keep the bad data from accumulating in your systems. The simplest example is contacts that enter your marketing automation system with false names and inaccurate contact information. How many times have you seen Mickey Mouse in your database? It’s the classic “garbage in, garbage out” challenge.
+Visualization:
+Visualization is critical in today’s world. Using charts and graphs to visualize large amounts of complex data is much more effective in conveying meaning than spread sheets and reports chock-full of numbers and formulas.
+Value:
+Value is the end game. After addressing volume, velocity, variety, variability, veracity, and visualization – which takes a lot of time, effort and resources – you want to be sure your organization is getting value from the data.
+
+HADOOP:
+Hadoop is an open source framework that is used to efficiently store and process large datasets ranging in size from gigabytes to petabytes of data.
+Instead of using one large computer to store and process the data, Hadoop allows clustering multiple computers to analyse massive datasets in parallel more quickly.
+Daemons of map reduce:
+Blocks: 64mb 128mb (hv1, hv2)
+Replication: fault tolerant (3 basic, can be changed further)
+Name node—point of contact with the client.
+Data Nodes—the machine connected with the name node.
+Cluster—group of machine/node.
+Check pointing: Combining the Fs image and Edit logs, which results in the new/updated fs image (present in secondary name node)
+We cannot do the process in the primary name node, because the speed of machine will be overcomed by the processing in the same primary node. 
+•	Map reduce: job tracker && task tracker(runs in data node)
+•	Fs point: When First time whenever we start our cluster, we store our meta data in it.
+•	CRED—Create, Retrieve, Edit, Delete
+•	Secondary Name node: It contain the copy of the fs node (primary name node).  
+YARN— Yet Another Resource Negotiator 
+
+Q. Whenever you’re putting a file from local server to hadoop, make sure the replication should be 2.
+Ans. setrep
+Q. Try to change the owner and the group of any file in hadoop, to the “cloudera”, and after that when we delete the folder, and it move into the trash, the empty the trash .
+talend
+-du—how much storage is used, in bytes
+-df—hao much storage , shows the drives
+Q) whenever u copy a file inside any hadoop location make sure it should persist its ownership and permissions.
+A) hdfs dfs cp
+   
+
+Q) when you're copying a file from local system or hadoop make sure if the file is already exsisting then delete the same file on hadoop location.
+A) 46  hadoop dfs -touchz /test/sample
+   47  pwd
+   48  hadoop dfs -rm /test/sample/var/lib/hadoop-hdfs
+   49  hadoop dfs -rm /test/sample
+
+
+Q) create to folder name as test and learning on the slash location on hadoop after that create any file on the test folder and copy the same file 
+   on learning.
+A)  1  hdfs dfsadmin -safemode leave
+    2  hadoop dfs -mkdir /test
+    3  hadoop dfs -mkdir /learning
+    4  ls
+    5  ls -lh
+    7  hadoop dfs -ls /
+   11  hadoop fs -touchz /test/data
+   15  hadoop dfs -ls /test
+   20  hadoop fs -cp /test/data /learning
+   21  hadoop dfs -ls /learning
+
+Q) now again copy the file and in case if the file is already exsisting then overwrite the file
+A) hadoop dfs -cp -f /learning/data /test
+
+
+Q) now try to remove the first file that u have copied now make sure it does'nt go in the trash folder when deleting the file
+A)  hadoop dfs -rm -skipTrash /test/data
+
+
+Q) whenever you are putting a file from local system to hadoop make sure the replication should be 2
+A) 40  hadoop dfs -setrep 2 /test
+   41  hadoop dfs -ls /test
+   42  hadoop dfs -stat /test
+
+
+Q) try to change the owner and the group of any file in hadoop to the cloudera user. and after when the folder goes to trash , empty the trash.
+A) 31  hadoop dfs -touchz /test/sample
+   32  hadoop dfs -ls /test
+   33  hadoop dfs -chown cloudera /test/sample
+   34  hadoop dfs -ls /test
+   35  hadoop dfs -chgrp cloudera /test/sample
+   36  history
+   37  hadoop dfs -rm /test/sample
+   38  hadoop dfs -expunge
+
+Input—Splitting(on the basis of white spaces)—mapping—shuffle(done by hadoop itself)—reducing(combining, counting)-- final
+#l/use/bin/python
+Import sys
+for line in sys.stdin
+python mapper .py
+echo”hey”
+echo “hello”|python map
+
+
+Yarn—services and their port number
+Bashrc file—user configuration and services to be set.
+
+YARN Schedular:
+
+	It take care of Resource Management
+                          Job Scheduling
+Job Scheduling FIFO(default in Plain Vanilla Hadoop)
+                                Not used in production 
+                           Fair(default schedule in Yarn and in cloudera distribution)
+                                Resources are free and all the jobs get equal priority
+	Timely completion
+	Cluster capacity utilization
+                           Capacity(default schedule in Hortonworks)
+	Resource Manager is master in Yarn.
+	Node Managers on worker nodes are slaves.
+	MapReduce is a programming paradigm that enables massive scalability across hundreds or thousands of servers 
+	in a Hadoop cluster. As the processing component, MapReduce is the heart of Apache Hadoop. The term "MapReduce" 
+	refers to two separate and distinct tasks that Hadoop programs perform. The first is the map job, which takes a 
+set of data and converts it into another set of data, where individual elements are broken down into tuples (key/value pairs).
+
+The reduce job takes the output from a map as input and combines those data tuples into a smaller set of tuples. As the sequence 
+of the name MapReduce implies, the reduce job is always performed after the map job.
+	
+shared architecture
+shared nothing architecture
+
+
+learn -->job tracker (point of contact) and task tracker (to take work from job tracker)
+
+JobTracker is the service within Hadoop that is responsible for taking client requests. It assigns them to 
+TaskTrackers on DataNodes where the data required is locally present. If that is not possible, JobTracker tries to assign the tasks
+ to TaskTrackers within the same rack where the data is locally present. If for some reason this also fails, JobTracker assigns the 
+task to a TaskTracker where a replica of the data exists. In Hadoop, data blocks are replicated across DataNodes to ensure redundancy,
+ so that if one node in the cluster fails, the job does not fail as well.
+-->schedules class
+-->resources
+-->acuumulates outputs
+-->reschedule if the task fails
+-->bottleneck
+
+JobTracker process:
+
+> Job requests from client applications are received by the JobTracker,
+> JobTracker consults the NameNode in order to determine the location of the required data.
+> JobTracker locates TaskTracker nodes that contain the data or at least are near the data.
+> The job is submitted to the selected TaskTracker.
+> The TaskTracker performs its tasks while being closely monitored by JobTracker. If the job fails, JobTracker 
+  simply resubmits the job to another TaskTracker. However, JobTracker itself is a single point of failure, meaning if it fails the whole system goes down.
+  JobTracker updates its status when the job completes.
+> The client requester can now poll information from JobTracker.
+
+
+
+tasktracker
+-->jvm launch
+-->data process
+-->accumulate outputs
+
+
+
+checkpointing
+we combine fsimage and edit logs becoz it takes less space, and can be accessed quickly 
+
+
+name node (metadata) --> fsimage -file where we store , first time when u start your cluster u get all the metadata saved in fsimage. 
+                     --> editlogs -create, retreieve , update or deletion of anything in the file, the updated metadata is stored.
+secondary name node
+
+
+templates
+class - consists of attributes and functionality(behaviors)
+
+objects
+fsoutputstream class
+ping
+heartbeat- it ensures that the data nodes are running by sending signals or packets every 2 seconds to the name node
+
+
+YARN (yet another resource negotiator)
+
+yarn components:
+
+resource manager- poc with client
+			schedule task  to node manager
+			resource divider
+1) scheduler 2) app manager
+
+application master
+
+node manager -serves 
+
+distributed computing 
+
+
+HDFS -->YARN --> MAP REDUCE , HIVE, SPARK, HBASE
+
+
+wordcount in map reduce
+input ->splitting -> mapping ->reducing ->shuffling ->final result
+
+string interpolation
+
+
+sort
+
+1  python mapper.py
+    2  echo "hi"
+    3  echo "hey hello how are you" | python mapper.py
+    4  python mapper.py
+    5  echo "hey hello how are you" | mapper.py
+
+Q) take input from the user of 16characters
+    A-Z 
+   small character
+   1 special character
+   hint ascii value
+
+
+Q) read out about the diff types of scheduler in yarn
+A)  FIFO, Capacity and Fair. FIFO (first in, first out) is 
+   the simplest to understand and does not need any configuration. It runs the applications in submission order by placing them in a queue.
+Capacity scheduler maintains a separate queue for small jobs in order to start them as soon a request initiates. However, this comes at a 
+cost as we are dividing cluster capacity hence large jobs will take more time to complete.
+
+Fair scheduler does not have any requirement to reserve capacity. It dynamically balances the resources into all accepted jobs. When a job 
+starts — if it is the only job running — it gets all the resources of the cluster. When
+ the second job starts it gets the resources as soon as some containers, (a container is a fixed amount of RAM and CPU) get free. After 
+the small job finishes, the scheduler assigns resources to large one. This eliminates both drawbacks as seen in FIFO and capacity scheduler
+ i.e. overall effect is timely completion of small jobs with high cluster utilization.
+
+
+Q) write a map reduce program to find out the no. of times i have a comma and a dot inside my file.
+A) if we do this with python then use count string function
+   #!/usr/bin/python
+
+import sys
+
+for line in sys.stdin:
+  line = line.strip()
+  print(line.count(','))
+  print(line.count('.'))
+
+DDL : DEFINITION LANG :CREATE, DELETE, 
+DML : MANIPULATION LANG :INSERT,UPDATE, MERGE, ALTER
+DCL :CONTROL LANGUAGE : GRANT, REVOKE
+TCL : DML (COMMIT, ROLLBACK, SAVEPOINT)
+DQL : QUERY LANGUAGE (TO GET THE RESULTS) (SELECT)
+
+
+Q) if u set an alias name it should all be as it is - small if small capitals if capitals
+A use AS
+
+
+Q) find out those employees whose salary is between 9k to 20k
+A) select * from employees where salary between 9000 and 200000;
+
+Q) find out those employees whose employee id is not in the range 100 to 120
+A) select * from employees where employee_id not/<> between 100 and 120;
+
+Q) i need to get that data where employee_id is 145 and the first name is john
+A) select * from employees where employee_id ='145' and first_name='john'
+
+Q) get that data whose employee_id is either 145 to 148 or commission_pct 0.2 
+A)  select * from employees where employee_id between 145 and 148 or commission_pct ='0.3'
+
+
+Q) job_id ab_press or sa_rep and salary is more than 10k
+A) select employee_id, first_name, job_id, salary
+   from employees
+    where job_id ='AD_PRESS' or job_id='SA_REP' and salary>=10000;
+
+
+Q) change message of the prompt message to any other message.
+A) except user, prompt "command line"
+
+
+NOT NULL - Ensures that a column cannot have a NULL value
+UNIQUE - Ensures that all values in a column are different
+PRIMARY KEY - A combination of a NOT NULL and UNIQUE. Uniquely identifies each row in a table
+FOREIGN KEY - Prevents actions that would destroy links between tables
+CHECK - Ensures that the values in a column satisfies a specific condition
+DEFAULT - Sets a default value for a column if no value is specified
+CREATE INDEX - Used to create and retrieve data from the database very quickly
+
+
+NVL:NVL lets you replace null (returned as a blank) with a string in the results of a query.
+    If expr1 is null, then NVL returns expr2. If expr1 is not null, then NVL returns expr1.
+
+NVL ( expr1 , expr2 ): If expr1 is null, then NVL returns expr2. If expr1 is not null, then NVL returns expr1.
+
+NVL2 ( expr1 , expr2 , expr3 ): If expr1 is null, then NVL2 returns expr3. If expr1 is not null, then NVL2 returns expr2
+
+LPAD() function in MySQL is used to pad or add a string to the left side of the original string
+
+
+---
+DDL
+-----
+DDL is short name of Data Definition Language, which deals with database schemas and descriptions, of how the data should reside in the database.
+
+CREATE - to create a database and its objects like (table, index, views, store procedure, function, and triggers)
+ALTER - alters the structure of the existing database
+DROP - delete objects from the database
+TRUNCATE - remove all records from a table, including all spaces allocated for the records are removed
+COMMENT - add comments to the data dictionary
+RENAME - rename an object
+----
+DML
+------
+ is short name of Data Manipulation Language which deals with data manipulation and includes most common SQL statements such SELECT, INSERT, UPDATE, DELETE, etc., and it is used to store, modify, retrieve, delete and update data in a database.
+
+SELECT - retrieve data from a database
+INSERT - insert data into a table
+UPDATE - updates existing data within a table
+DELETE - Delete all records from a database table
+MERGE - UPSERT operation (insert or update)
+CALL - call a PL/SQL or Java subprogram
+EXPLAIN PLAN - interpretation of the data access path
+LOCK TABLE - concurrency Control
+----
+DCL
+------
+ is short name of Data Control Language which includes commands such as GRANT and mostly concerned with rights, permissions and other controls of the database system.
+
+GRANT - allow users access privileges to the database
+REVOKE - withdraw users access privileges given by using the GRANT command
+----
+TCL
+------
+ is short name of Transaction Control Language which deals with a transaction within a database.
+
+COMMIT - commits a Transaction, permanently saves a transaction
+ROLLBACK - rollback a transaction in case of any error occurs
+SAVEPOINT - to rollback the transaction making points within groups
+SET TRANSACTION - specify characteristics of the transaction
+
+
+--------------------------------------------------------------------
+
+user group and nested query
+
+in---- used to specify multiple values
+
+
+or---ALL means that the condition will be true only if the operation is true for all values in the range.  
+
+
+
+all----ALL means that the condition will be true only if the operation is true for all values in the range. 
+
+
+SQLZOO
+substition variable in oracle
+ETL-> Extract, Tranform, Loop
+Data Warehouse— Place to storing data
+Talend- A tool to process the data.
+•	HIVE—SQL
+•	Easy ETL process
+•	Log processing
+•	Custom map-reduce
+•	Partitioning and Buckteing
+
+Partition—technique used for storing the data in an efficient way
+For it we separate the data based on partition key(column)
+Static partirion is o ly used when we know about the typer of data, or data is limited, or data less distribution
+
+Cuty bucketing—> data will be distributed according to hash functions.
+Into—append
+Overwrite overwrite into
+Partition folder banata hai and bucketing unn files m folder bnata hai
+
+ETL—
+We convert the data into a sigle form(centralised format data)
+Pick—extract
+Conversion data into tabular form—transform
+Load the data into datawarehouse/hadoop etc
+
+Spark Session:
+Spark cluster: 
+Machine(rdd) spark context (entry point of cluster)
+Sc object belons to—spark session class
+Use of sc object—RDD, cariable, acculumulator, can be accessed.
+
+Data frames – tables—rows and columns
+Imp-- Spark session, usd to create data frames, can be accessed by the one who created it, and spark context is only one 
