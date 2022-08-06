@@ -1,0 +1,130 @@
+ASSIGNMENT (SQL)
+Q. The data we've provided must be in uppercase if provided and vice-versa.
+-- select first_name as 'fname' from employees;
+
+Q. Find out those employees whose salary is between 9000 to 20000.
+-- select first_name from employees where salary between '9000' and '20000';
+
+Q. Find out those employees whose emp_id is not in the range 100 to 120.
+-- select first_name,employee_id from employees where employee_id<100 or employee_id>120;
+
+Q. Change message of the prompt message to any other message.
+-- select * from employees where first_name='&ename';
+     accept ename prompt "Enter the value";
+     
+Q. we have to take '_' as character not operator.
+-- You can use the wildcard pattern matching characters as literal characters.
+   To use a wildcard character as a literal character, enclose the wildcard character in brackets.
+   The following table shows several examples of using the LIKE keyword and the [ ] wildcard characters.
+   eg. LIKE '%[_]d'
+
+Q. I need to get that data where employee_id is 145 and the first_name is john.
+-- select* from employees where employee_id ='145' and first_name ='John';
+
+Q. Get those data whose emp_id either from 145 to 148 or commision_pct is 0.3.
+-- select* from employees where employee_id between 145 and 148 or commission_pct = '0.3';
+
+Q.
+a) Find out the emp id,hire date and also the 6 months of training that when it is ending.
+-- select employee_id,hire_date,add_months(hire_date,6) as Training_period;
+b) and also find out how much months the person worked into the company.
+-- select employee_id, hire_date,sysdate,round((sysdate-hire_date)/30) from employees;
+c) when is the next working monday from the date, the person is hired.
+-- select first_name, hire_date, to_char(next_day(hire_date,'monday'),'day,dd,mm,yyyy')  from employees;
+
+Q.Try to increase the salary of a person by 10% whose job id is ad_press. and if job_id is fi_mgr the increace salary by 25% and if job_id is hr_rep then increase salary by 50%, and no impact on all the other persons.
+Hint: use case and group by statement
+-- select employee_id,job_id ,salary,
+   case 
+   when job_id='AD_PRES' then salary+(salary*.10)
+   when job_id='FI_MGR' then salary+(salary*.25)
+   when job_id='HR_REP' then salary+(salary*.50)
+   else salary
+   end
+   from employees;
+   
+Q. select the emp id, no. of employees wrking in that department where the no. of employees working shoud be greater then the no of person working in department_id 90.
+Hint: use grp by and nested query
+-- select department_id ,count(employee_id) from employees 
+   group by department_id
+   having count(employee_id)>(select count(employee_id) from employees where department_id = '90');
+   
+Q. create a user using sys, then give user create session and create table permission. And check it.
+-- create user super identified by super;
+   grant create session, create table to super;
+   
+Q. Create a user demo, psswd demo, give preveliges create session, create session, unlimited table space. 
+-- create user demo identified by demo;
+   alter user demo identified by demo;
+   grant create table, create session, unlimited tablespace to demo;
+   
+Q. Create a new table and took data from the employee table. (only put Jaipur data)
+-- CREATE TABLE learning AS SELECT id,name,dept_id,city FROM testing WHERE city = 'Jaipur';
+
+Q. Create a new table and insert (jodhpur location data).
+-- CREATE TABLE learning AS SELECT id,name,dept_id,city FROM testing WHERE city = 'Jodhpur';
+
+Q. From any table drop 1 column, then in that table add one column
+-- ALTER TABLE learning REPLACE COLUMNS(id int,dept_id string,name string);
+
+Q. Convert the data type of any column of a table from integer to string. 
+-- ALTER TABLE learning CHANGE id id string;
+   ALTER TABLE table_name CHANGE column_name column_name new_datatype;
+
+Q. Rename a column name and change data type (if column is on first side then change it’s location)
+-- ALTER TABLE learning RENAME TO Assignment;
+   ALTER TABLE table_name RENAME TO new_table_name;
+   ALTER TABLE Assignment REPLACE COLUMNS(dept_id string,id string,name string,city string);
+   
+##Extra Question:
+Q. Take a input from the user, if a input given is a integer the follow the futher steps otherwise take the input again.
+If input=1 then, print the name of current file.
+If input=2then, create a folder test, at the present location
+If input=3 then, print IP address
+If input=4, then open browser and search regex software services
+If input=5, then open whatsapp and send message to tushar sir.
+-- while True:
+    a = int(input("enter a number"))
+    if a == 1:
+        try:
+            from pathlib import Path
+
+            print(Path(__file__).stem)
+        except OSError:
+            pass
+    elif a == 2:
+        import os
+
+        d = os.path.dirname(__file__)  # directory of script
+        p = r'{}/Test'.format(d)  # path to be created
+        try:
+            os.makedirs(p)
+            print("test folder is created")
+        except OSError:
+            pass
+    elif a == 3:
+        try:
+            import socket
+
+            hostname = socket.gethostname()
+            IPAddr = socket.gethostbyname(hostname)
+            print("Your Computer Name is:" + hostname)
+            print("Your Computer IP Address is:" + IPAddr)
+        except OSError:
+            pass
+    elif a == 4:
+        try:
+            import webbrowser
+
+            webbrowser.open('https://www.regexsoftware.com/')
+        except OSError:
+            pass
+    elif a == 5:
+        try:
+            import pywhatkit
+
+            pywhatkit.sendwhatmsg_instantly("+91 9352748112", "Ab check kar")
+        except OSError:
+            pass
+    else:
+        break;
